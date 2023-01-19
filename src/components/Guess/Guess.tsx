@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
+// Types
 type GuessProps = {
   guess: string;
   answer: string;
 };
 
-const Guess = ({ guess, answer }: GuessProps) => {
-  //   const [dictionary, setDictionary] = useState<any>([]);
-  //   const [letterColor, setLetterColor] = useState<any>([]);
+type letterColorObj = {
+  [key: string]: string;
+};
 
-  let dictionary: any = [...answer].reduce((obj: any, curr) => {
+type letterColor = letterColorObj[];
+
+type dictionary = { [key: string]: number };
+
+const Guess = ({ guess, answer }: GuessProps) => {
+  let dictionary: dictionary = [...answer].reduce((obj: dictionary, curr) => {
     if (Object.keys({ ...obj }).includes(curr)) {
       return { ...obj, [curr]: obj[curr] + 1 };
     } else {
@@ -17,39 +23,7 @@ const Guess = ({ guess, answer }: GuessProps) => {
     }
   }, {});
 
-  let letterColor: any = [];
-
-  //   useEffect(() => {
-  //     setDictionary(
-  //       [...answer].reduce((obj: any, curr) => {
-  //         if (Object.keys({ ...obj }).includes(curr)) {
-  //           return { ...obj, [curr]: obj[curr] + 1 };
-  //         } else {
-  //           return { ...obj, [curr]: 1 };
-  //         }
-  //       }, {})
-  //     );
-
-  //     for (let i = 0; i < guess.length; i++) {
-  //       if (answer[i] === guess[i]) {
-  //         setDictionary({ ...dictionary, [guess[i]]: dictionary[guess[i]] - 1 });
-  //         setLetterColor([...letterColor, { [guess[i]]: "green" }]);
-  //       } else if (answer.includes(guess[i]) && dictionary[guess[i]] >= 1) {
-  //         setDictionary({ ...dictionary, [guess[i]]: dictionary[guess[i]] - 1 });
-  //         setLetterColor([...letterColor, { [guess[i]]: "yellow" }]);
-  //       } else if (answer.includes(guess[i]) && dictionary[guess[i]] <= 0) {
-  //         setLetterColor([...letterColor, { [guess[i]]: "black" }]);
-  //       } else {
-  //         setLetterColor([...letterColor, { [guess[i]]: "black" }]);
-  //       }
-  //     }
-
-  //     for (let i = 0; i < guess.length; i++) {
-  //       if (dictionary[guess[i]] < 0 && letterColor[i][guess[i]] === "yellow") {
-  //         letterColor[i][guess[i]] = "black";
-  //       }
-  //     }
-  //   }, []);
+  let letterColor: letterColor = [];
 
   for (let i = 0; i < guess.length; i++) {
     if (answer[i] === guess[i]) {
