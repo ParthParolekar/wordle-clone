@@ -1,3 +1,21 @@
+# Roc8 Assignment - Wordle Clone
+
+## Live: https://worddle.netlify.app/
+
+## Features:
+- Dark Mode
+- Accept user input
+- Check if the letter is correct or not and set a color accordingly
+  - `Green` If the letter exists at the correct postion
+  - `Yellow` if the letter exists at the wrong postion
+  - `Red` if the letter does not exist
+ - Responsive
+ 
+ ## Tech Stack
+ - ReactJS
+ - Typescript
+ - TailwindCSS
+ 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
