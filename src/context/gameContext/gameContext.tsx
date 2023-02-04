@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { InitialStateType, gameReducer, initialState } from "./gameReducer";
+import { gameReducer, initialState } from "./gameReducer";
 
 interface Props {
   children: React.ReactNode;
