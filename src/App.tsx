@@ -1,9 +1,45 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Guesses, Navbar, Result, UserInput } from "./components";
+import { Guesses, Keyboard, Navbar, Result, UserInput } from "./components";
 import generateWord from "./utils/generateWord";
 
+type KeyboardType = { key: string; bgcolor: string; isGuessed: boolean };
+
 function App() {
+  const [keyboard, setKeyboard] = useState<KeyboardType[][]>([
+    [
+      { key: "q", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "w", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "e", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "r", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "t", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "y", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "u", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "i", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "o", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "p", bgcolor: "bg-gray-500", isGuessed: false },
+    ],
+    [
+      { key: "a", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "s", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "d", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "f", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "g", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "h", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "j", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "k", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "l", bgcolor: "bg-gray-500", isGuessed: false },
+    ],
+    [
+      { key: "z", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "x", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "c", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "v", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "b", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "n", bgcolor: "bg-gray-500", isGuessed: false },
+      { key: "m", bgcolor: "bg-gray-500", isGuessed: false },
+    ],
+  ]);
   const [answer, setAnswer] = useState<string>(generateWord());
   const [theme, setTheme] = useState<string>("light");
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -43,6 +79,7 @@ function App() {
           setGuesses={setGuesses}
           setAnswer={setAnswer}
         />
+        <Keyboard keyboard={keyboard} setKeyboard={setKeyboard} />
       </div>
     </div>
   );
