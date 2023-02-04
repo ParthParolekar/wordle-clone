@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Guesses, Keyboard, Navbar, Result, UserInput } from "./components";
 import generateWord from "./utils/generateWord";
+import { useGame } from "./context/gameContext/gameContext";
 
 type KeyboardType = { key: string; bgcolor: string; isGuessed: boolean };
 
 function App() {
+  // @ts-ignore
+  const [gameState, gameDispatch] = useGame();
+  console.log(gameState);
   const [keyboard, setKeyboard] = useState<KeyboardType[][]>([
     [
       { key: "q", bgcolor: "bg-gray-500", isGuessed: false },
