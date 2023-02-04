@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { useGame } from "../../context/gameContext/gameContext";
 
 type KeyboardType = { key: string; bgcolor: string; isGuessed: boolean };
 
@@ -7,10 +8,13 @@ type KeyboardPropTypes = {
   setKeyboard: Dispatch<SetStateAction<KeyboardType[][]>>;
 };
 
-const Keyboard = ({ keyboard, setKeyboard }: KeyboardPropTypes) => {
+const Keyboard = () => {
+  // @ts-ignore
+  const [gameState, gameDispatch] = useGame();
+  const { answer, guesses, keyboard } = gameState;
   return (
     <div className="flex flex-col items-center justify-center">
-      {keyboard.map((line) => (
+      {keyboard.map((line: KeyboardType[]) => (
         <div className="flex flex-row">
           {line.map((key) => (
             <div

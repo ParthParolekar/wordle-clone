@@ -1,14 +1,12 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState } from "react";
 import Button from "../Button/Button";
 import Info from "../Info/Info";
+import { useGame } from "../../context/gameContext/gameContext";
 
-type UserInputProps = {
-  answer: string;
-  guesses: string[];
-  setGuesses: Dispatch<SetStateAction<string[]>>;
-};
-
-const UserInput = ({ answer, guesses, setGuesses }: UserInputProps) => {
+const UserInput = () => {
+  // @ts-ignore
+  const [gameState, gameDispatch] = useGame();
+  const { answer, guesses } = gameState;
   const [input, setInput] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
@@ -21,7 +19,7 @@ const UserInput = ({ answer, guesses, setGuesses }: UserInputProps) => {
     if (input.length !== 5) {
       setError(true);
     } else {
-      setGuesses([...guesses, input]);
+      gameDispatch({ type: "ADD_NEW_GUESS", payload: input });
       setInput("");
     }
   };

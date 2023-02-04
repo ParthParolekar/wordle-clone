@@ -66,7 +66,7 @@ export const gameReducer = (
         ),
       };
     case "RESET":
-      return initialState;
+      return { ...initialState, answer: generateWord() };
     default:
       return state;
   }

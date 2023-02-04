@@ -10,43 +10,8 @@ function App() {
   // @ts-ignore
   const [gameState, gameDispatch] = useGame();
   console.log(gameState);
-  const [keyboard, setKeyboard] = useState<KeyboardType[][]>([
-    [
-      { key: "q", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "w", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "e", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "r", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "t", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "y", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "u", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "i", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "o", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "p", bgcolor: "bg-gray-500", isGuessed: false },
-    ],
-    [
-      { key: "a", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "s", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "d", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "f", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "g", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "h", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "j", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "k", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "l", bgcolor: "bg-gray-500", isGuessed: false },
-    ],
-    [
-      { key: "z", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "x", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "c", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "v", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "b", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "n", bgcolor: "bg-gray-500", isGuessed: false },
-      { key: "m", bgcolor: "bg-gray-500", isGuessed: false },
-    ],
-  ]);
-  const [answer, setAnswer] = useState<string>(generateWord());
+  const { answer, guesses } = gameState;
   const [theme, setTheme] = useState<string>("light");
-  const [guesses, setGuesses] = useState<string[]>([]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -70,20 +35,11 @@ function App() {
         <Navbar theme={theme} setTheme={setTheme} />
 
         {guesses.length < 6 && guesses[guesses.length - 1] !== answer && (
-          <UserInput
-            answer={answer}
-            guesses={guesses}
-            setGuesses={setGuesses}
-          />
+          <UserInput />
         )}
-        <Guesses guesses={guesses} answer={answer} />
-        <Result
-          answer={answer}
-          guesses={guesses}
-          setGuesses={setGuesses}
-          setAnswer={setAnswer}
-        />
-        <Keyboard keyboard={keyboard} setKeyboard={setKeyboard} />
+        <Guesses />
+        <Result />
+        <Keyboard />
       </div>
     </div>
   );

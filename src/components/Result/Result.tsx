@@ -1,17 +1,16 @@
-import React, { Dispatch, SetStateAction } from "react";
-import generateWord from "../../utils/generateWord";
+import React from "react";
+
 import Button from "../Button/Button";
 import Info from "../Info/Info";
-type ResultProps = {
-  answer: string;
-  guesses: string[];
-  setGuesses: Dispatch<SetStateAction<string[]>>;
-  setAnswer: Dispatch<SetStateAction<string>>;
-};
-const Result = ({ answer, guesses, setGuesses, setAnswer }: ResultProps) => {
+import { useGame } from "../../context/gameContext/gameContext";
+
+const Result = () => {
+  // @ts-ignore
+  const [gameState, gameDispatch] = useGame();
+  const { answer, guesses } = gameState;
+
   const buttonClickHandler = () => {
-    setGuesses([]);
-    setAnswer(generateWord());
+    gameDispatch({ type: "RESET" });
   };
   return (
     <div>
