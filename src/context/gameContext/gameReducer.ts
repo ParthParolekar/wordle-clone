@@ -6,6 +6,8 @@ export type InitialStateType = {
   answer: string;
   guesses: string[];
   keyboard: KeyboardType[][];
+  userInput: string[];
+  pointer: number;
 };
 const keyboard = [
   [
@@ -32,6 +34,7 @@ const keyboard = [
     { key: "l", bgcolor: "bg-gray-500", isGuessed: false },
   ],
   [
+    { key: "Enter", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "z", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "x", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "c", bgcolor: "bg-gray-500", isGuessed: false },
@@ -39,12 +42,15 @@ const keyboard = [
     { key: "b", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "n", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "m", bgcolor: "bg-gray-500", isGuessed: false },
+    { key: "Backspace", bgcolor: "bg-gray-500", isGuessed: false },
   ],
 ];
 export const initialState: InitialStateType = {
   answer: generateWord(),
   guesses: [],
   keyboard,
+  userInput: ["", "", "", "", ""],
+  pointer: 0,
 };
 
 export const gameReducer = (
@@ -54,8 +60,37 @@ export const gameReducer = (
   switch (action.type) {
     case "GENERATE_NEW_WORD":
       return { ...state, answer: generateWord() };
+    case "ADD_USER_INPUT":
+      return {
+        ...state,
+        userInput: state.userInput.map((x, i) =>
+          i === state.pointer ? action.payload : x
+        ),
+      };
+    case "REMOVE_USER_INPUT":
+      return {
+        ...state,
+        userInput: state.userInput.map((x, i) =>
+          i === state.pointer - 1 ? "" : x
+        ),
+      };
+    case "INCREMENT_POINTER":
+      return {
+        ...state,
+        pointer: state.pointer + 1,
+      };
+    case "DECREMENT_POINTER":
+      return {
+        ...state,
+        pointer: state.pointer - 1,
+      };
     case "ADD_NEW_GUESS":
-      return { ...state, guesses: [...state.guesses, action.payload] };
+      return {
+        ...state,
+        guesses: [...state.guesses, action.payload],
+        userInput: ["", "", "", "", ""],
+        pointer: 0,
+      };
     case "EDIT_KEYBOARD":
       return {
         ...state,
@@ -65,6 +100,8 @@ export const gameReducer = (
           )
         ),
       };
+    case "EDIT_USER_INPUT":
+      return { ...state, userInput: action.payload };
     case "RESET":
       return { ...initialState, answer: generateWord() };
     default:
