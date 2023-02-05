@@ -6,7 +6,7 @@ import { useGame } from "./context/gameContext/gameContext";
 function App() {
   // @ts-ignore
   const [gameState, gameDispatch] = useGame();
-  // console.log(gameState);
+  console.log(gameState);
   const { answer, guesses, keyboard, userInput, pointer } = gameState;
   const [theme, setTheme] = useState<string>("light");
 
@@ -57,13 +57,14 @@ function App() {
     >
       <div className="w-screen md:w-6/12 min-h-screen flex flex-col justify-start items-center">
         <Navbar theme={theme} setTheme={setTheme} />
-
+        <Guesses />
         {guesses.length < 6 && guesses[guesses.length - 1] !== answer && (
           <UserInput />
         )}
-        <Guesses />
         <Result />
-        <Keyboard />
+        {guesses.length < 6 && guesses[guesses.length - 1] !== answer && (
+          <Keyboard />
+        )}
       </div>
     </div>
   );

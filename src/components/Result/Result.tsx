@@ -18,7 +18,9 @@ const Result = () => {
         <Info content="You guessed it right! Congrats!" />
       )}
       {guesses.length === 6 && guesses[guesses.length - 1] !== answer && (
-        <Info content="You ran out of guesses! Better luck next time" />
+        <Info
+          content={`You ran out of guesses! The answer is ${answer}! Better luck next time`}
+        />
       )}
       {(guesses.length === 6 || guesses[guesses.length - 1] === answer) && (
         <div className="text-center">

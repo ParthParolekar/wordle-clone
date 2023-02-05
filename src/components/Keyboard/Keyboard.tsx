@@ -21,7 +21,7 @@ const Keyboard = () => {
       }
     }
 
-    if ((e.target as any).id === "Backspace") {
+    if ((e.target as any).id === "Back") {
       if (pointer > 0) {
         gameDispatch({ type: "REMOVE_USER_INPUT" });
         gameDispatch({
@@ -38,10 +38,10 @@ const Keyboard = () => {
         });
       }
     }
-    // gameDispatch({type: "EDIT_KEYBOARD" payload: })
   };
+
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center absolute bottom-0">
       {keyboard.map((line: KeyboardType[], i: number) => (
         <div className="flex flex-row" key={i}>
           {line.map((key) => (
@@ -49,7 +49,7 @@ const Keyboard = () => {
               onClick={keyClickHandler}
               key={key.key}
               id={key.key}
-              className={`${key.bgcolor} cursor-pointer m-1 px-2  min-w-[30px] h-14 flex justify-center items-center text-white text-xl  rounded-md`}
+              className={`${key.bgcolor} cursor-pointer m-1 px-1  min-w-[20px] h-14 flex justify-center items-center text-white text-[0.6rem] rounded-md sm:min-w-[30px] sm:text-xl`}
             >
               {key.key}
             </div>

@@ -42,7 +42,7 @@ const keyboard = [
     { key: "b", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "n", bgcolor: "bg-gray-500", isGuessed: false },
     { key: "m", bgcolor: "bg-gray-500", isGuessed: false },
-    { key: "Backspace", bgcolor: "bg-gray-500", isGuessed: false },
+    { key: "Back", bgcolor: "bg-gray-500", isGuessed: false },
   ],
 ];
 export const initialState: InitialStateType = {
