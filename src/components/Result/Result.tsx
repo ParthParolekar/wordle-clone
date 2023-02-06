@@ -1,17 +1,16 @@
-import React, { Dispatch, SetStateAction } from "react";
-import generateWord from "../../utils/generateWord";
+import React from "react";
+
 import Button from "../Button/Button";
 import Info from "../Info/Info";
-type ResultProps = {
-  answer: string;
-  guesses: string[];
-  setGuesses: Dispatch<SetStateAction<string[]>>;
-  setAnswer: Dispatch<SetStateAction<string>>;
-};
-const Result = ({ answer, guesses, setGuesses, setAnswer }: ResultProps) => {
+import { useGame } from "../../context/gameContext/gameContext";
+
+const Result = () => {
+  // @ts-ignore
+  const [gameState, gameDispatch] = useGame();
+  const { answer, guesses } = gameState;
+
   const buttonClickHandler = () => {
-    setGuesses([]);
-    setAnswer(generateWord());
+    gameDispatch({ type: "RESET" });
   };
   return (
     <div>
@@ -19,7 +18,9 @@ const Result = ({ answer, guesses, setGuesses, setAnswer }: ResultProps) => {
         <Info content="You guessed it right! Congrats!" />
       )}
       {guesses.length === 6 && guesses[guesses.length - 1] !== answer && (
-        <Info content="You ran out of guesses! Better luck next time" />
+        <Info
+          content={`You ran out of guesses! The answer is ${answer}! Better luck next time`}
+        />
       )}
       {(guesses.length === 6 || guesses[guesses.length - 1] === answer) && (
         <div className="text-center">

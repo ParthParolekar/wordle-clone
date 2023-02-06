@@ -5,5 +5,6 @@ import UserInput from "./UserInput/UserInput";
 import Guesses from "./Guesses/Guesses";
 import Result from "./Result/Result";
 import Info from "./Info/Info";
+import Keyboard from "./Keyboard/Keyboard";
 
-export { Button, Navbar, Title, UserInput, Guesses, Result, Info };
+export { Button, Navbar, Title, UserInput, Guesses, Result, Info, Keyboard };

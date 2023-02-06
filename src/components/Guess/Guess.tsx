@@ -28,32 +28,32 @@ const Guess = ({ guess, answer }: GuessProps) => {
   for (let i = 0; i < guess.length; i++) {
     if (answer[i] === guess[i]) {
       dictionary = { ...dictionary, [guess[i]]: dictionary[guess[i]] - 1 };
-      letterColor = [...letterColor, { [guess[i]]: "bg-green-500" }];
+      letterColor = [...letterColor, { [guess[i]]: "bg-[#538d4e]" }];
     } else if (answer.includes(guess[i]) && dictionary[guess[i]] >= 1) {
       dictionary = { ...dictionary, [guess[i]]: dictionary[guess[i]] - 1 };
-      letterColor = [...letterColor, { [guess[i]]: "bg-orange-500" }];
+      letterColor = [...letterColor, { [guess[i]]: "bg-[#b59f3b]" }];
     } else if (answer.includes(guess[i]) && dictionary[guess[i]] <= 0) {
-      letterColor = [...letterColor, { [guess[i]]: "bg-red-500" }];
+      letterColor = [...letterColor, { [guess[i]]: "bg-[#3a3a3c]" }];
     } else {
-      letterColor = [...letterColor, { [guess[i]]: "bg-red-500" }];
+      letterColor = [...letterColor, { [guess[i]]: "bg-[#3a3a3c]" }];
     }
   }
 
   for (let i = 0; i < guess.length; i++) {
     if (
       dictionary[guess[i]] < 0 &&
-      letterColor[i][guess[i]] === "bg-orange-500"
+      letterColor[i][guess[i]] === "bg-[#b59f3b]"
     ) {
-      letterColor[i][guess[i]] = "bg-red-500";
+      letterColor[i][guess[i]] = "bg-[#3a3a3c]";
     }
   }
 
   return (
-    <div className="my-8">
+    <div className="mt-8">
       {letterColor.map((letter: any, i: number) => (
         <span
           key={i}
-          className={`text-black dark:text-white ${
+          className={`text-white ${
             Object.entries(letter)[0][1]
           } rounded-lg text-3xl font-mono font-bold py-2 px-4 mx-1`}
         >

@@ -1,45 +1,38 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import Info from "../Info/Info";
+import { useGame } from "../../context/gameContext/gameContext";
 
-type UserInputProps = {
-  answer: string;
-  guesses: string[];
-  setGuesses: Dispatch<SetStateAction<string[]>>;
-};
-
-const UserInput = ({ answer, guesses, setGuesses }: UserInputProps) => {
-  const [input, setInput] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
-
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError(false);
-    setInput(e.target.value.toLowerCase());
-  };
-
-  const buttonClickHandler = () => {
-    if (input.length !== 5) {
-      setError(true);
-    } else {
-      setGuesses([...guesses, input]);
-      setInput("");
-    }
-  };
+const UserInput = () => {
+  // @ts-ignore
+  const [gameState, gameDispatch] = useGame();
+  const { answer, guesses, userInput } = gameState;
 
   return (
-    <main className="mt-10 text-center">
-      {error && <Info content="The word should be exactly 5 letter long" />}
-      <div>
-        <input
-          type="text"
-          value={input}
-          className="bg-transparent border-2 border-solid rounded-lg border-gray-500 text-black dark:text-white"
-          onChange={(e) => inputChangeHandler(e)}
-        />
-        {guesses.length < 6 && guesses[guesses.length - 1] !== answer && (
-          <Button content={"Enter"} onClickMethod={buttonClickHandler} />
-        )}
+    <main className="text-center">
+      <div className="my-4 flex flex-row items-center justify-center">
+        {userInput.map((letter: string, i: number) => (
+          <span
+            key={i}
+            className={`block text-black dark:text-white border border-black dark:border-white rounded-lg text-3xl font-mono font-bold py-2 px-4 w-12 h-12 mx-1`}
+          >
+            {letter}
+          </span>
+        ))}
       </div>
+      {[...Array(5 - guesses.length).keys()].map((key) => (
+        <div
+          className="my-4 flex flex-row items-center justify-center"
+          key={key}
+        >
+          {userInput.map((letter: string, i: number) => (
+            <span
+              key={i}
+              className={`block text-black dark:text-white border border-black dark:border-white rounded-lg text-3xl font-mono font-bold py-2 px-4 w-12 h-12 mx-1`}
+            ></span>
+          ))}
+        </div>
+      ))}
     </main>
   );
 };
