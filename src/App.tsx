@@ -10,6 +10,11 @@ function App() {
   const { answer, guesses, keyboard, userInput, pointer } = gameState;
   const [theme, setTheme] = useState<string>("light");
 
+  useEffect(() => {
+    document.addEventListener("keydown", detectKey);
+    return () => document.removeEventListener("keydown", detectKey);
+  }, [gameState]);
+
   const detectKey = (e: any) => {
     if (e.key.match(/^[a-z]$/)) {
       if (pointer < 5) {
@@ -28,6 +33,15 @@ function App() {
         gameDispatch({ type: "REMOVE_USER_INPUT" });
         gameDispatch({
           type: "DECREMENT_POINTER",
+        });
+      }
+    }
+
+    if (e.key === "Enter") {
+      if (pointer === 5) {
+        gameDispatch({
+          type: "ADD_NEW_GUESS",
+          payload: gameState.userInput.join(""),
         });
       }
     }
