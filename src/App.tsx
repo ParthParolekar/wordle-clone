@@ -6,7 +6,7 @@ import { useGame } from "./context/gameContext/gameContext";
 function App() {
   // @ts-ignore
   const [gameState, gameDispatch] = useGame();
-  console.log(gameState);
+  console.log("answer: ", gameState.answer);
   const { answer, guesses, keyboard, userInput, pointer } = gameState;
   const [theme, setTheme] = useState<string>("light");
 
